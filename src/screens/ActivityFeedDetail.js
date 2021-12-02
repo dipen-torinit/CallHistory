@@ -9,8 +9,10 @@ export function ActivityFeedDetail({ route, navigation }) {
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { id, archivedDetail } = route.params;
+
   useEffect(() => {
-    FeedAPI.get(`/activities/${route.params.id}`)
+    FeedAPI.get(`/activities/${id}`)
       .then((response) => {
         setTimeout(function () {
           setResult(response.data);
@@ -27,7 +29,7 @@ export function ActivityFeedDetail({ route, navigation }) {
       {loading ? (
         <ProgressBar />
       ) : (
-        <View style={styles.item}>
+        <View style={archivedDetail ? styles.archived_item : styles.item}>
           <FeedDetailRow title="ID:" body={result.id} />
           <FeedDetailRow title="Create At:" body={result.created_at} />
           <FeedDetailRow title="Direction:" body={result.direction} />
@@ -48,6 +50,12 @@ export function ActivityFeedDetail({ route, navigation }) {
 
 const styles = StyleSheet.create({
   item: {
+    backgroundColor: "#00FF00",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  archived_item: {
     backgroundColor: "#FF0000",
     padding: 20,
     marginVertical: 8,

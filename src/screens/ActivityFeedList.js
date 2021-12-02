@@ -5,9 +5,11 @@ import { CallItem } from "../components/CallItem";
 import FeedAPI from "../api/FeedAPI";
 import ProgressBar from "../components/ProgressBar";
 
-export function ActivityFeedList({ navigation }) {
+export function ActivityFeedList({ route, navigation }) {
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const showArchived = route.params.showArchived;
 
   function archiveCall(id) {
     setLoading(true);
@@ -26,7 +28,9 @@ export function ActivityFeedList({ navigation }) {
 
     FeedAPI.get("/activities")
       .then((response) => {
-        setResult(response.data.filter((item) => item.is_archived === false)); //Show NOT archived item only
+        setResult(
+          response.data.filter((item) => item.is_archived === showArchived)
+        );
         // setResult(response.data);
         setLoading(false);
       })
@@ -43,7 +47,9 @@ export function ActivityFeedList({ navigation }) {
       {loading && <ProgressBar />}
       <FlatList
         data={result}
-        renderItem={({ item }) => CallItem({ item, navigation, archiveCall })}
+        renderItem={({ item }) =>
+          CallItem({ item, navigation, archiveCall, isArchived: showArchived })
+        }
         keyExtractor={(item) => item.id}
         refreshing={loading}
         onRefresh={getCallHistory}
