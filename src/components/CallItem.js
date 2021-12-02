@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 10,
   },
   archived_item: {
     backgroundColor: "#FF0000",
@@ -48,8 +49,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 10,
   },
   text: {
+    fontFamily: "Cochin",
+    fontWeight: "bold",
     flex: 1,
   },
   deleteicon: {

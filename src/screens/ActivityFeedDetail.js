@@ -29,7 +29,12 @@ export function ActivityFeedDetail({ route, navigation }) {
       {loading ? (
         <ProgressBar />
       ) : (
-        <View style={archivedDetail ? styles.archived_item : styles.item}>
+        <View
+          style={[
+            styles.item,
+            { backgroundColor: archivedDetail ? "#FF0000" : "#00FF00" }, //Overriding style element
+          ]}
+        >
           <FeedDetailRow title="ID:" body={result.id} />
           <FeedDetailRow title="Create At:" body={result.created_at} />
           <FeedDetailRow title="Direction:" body={result.direction} />
@@ -50,16 +55,10 @@ export function ActivityFeedDetail({ route, navigation }) {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#00FF00",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-  },
-  archived_item: {
-    backgroundColor: "#FF0000",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    borderRadius: 10,
   },
   text: {
     marginVertical: 8,
